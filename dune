@@ -1,12 +1,12 @@
 (executables
-    (names main)
-    (libraries
-        toyml
-    )
-    (public_names toyml))
+  (names main)
+  (libraries
+    toyml
+  )
+  (public_names toyml))
 
 (env
-    (dev
-        (flags
-            (:standard -warn-error -A -w -39)
-        )))
+  (dev
+    (flags
+      (:standard -warn-error -A -w -39)
+    )))
