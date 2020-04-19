@@ -27,6 +27,6 @@ let rec map f = function
     [] -> []
   | x :: rest -> insert (f x) (map f rest)
 
-let rec biguinon = function
+let rec bigunion = function
     [] -> []
   | set1 :: rest -> union set1 (bigunion rest)

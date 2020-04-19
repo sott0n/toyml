@@ -40,4 +40,4 @@ AExpr :
   | LPAREN e=Expr RPAREN { e }
 
 IfExpr :
-    IF c=Expr THEN t=Expr ELSE e=Expr { IfExpr (c, t, e) }
+    IF c=Expr THEN t=Expr ELSE e=Expr { IfExp (c, t, e) }

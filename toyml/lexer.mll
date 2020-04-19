@@ -20,7 +20,7 @@ rule main = parse
 | ";;" { Parser.SEMISEMI }
 | "+" { Parser.PLUS }
 | "*" { Parser.MULT }
-| "<" { Parse.LT }
+| "<" { Parser.LT }
 
 | ['a'-'z'] ['a'-'z' '0'-'9' '_' '\'']*
   { let id = Lexing.lexeme lexbuf in
