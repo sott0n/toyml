@@ -1,5 +1,6 @@
 {
 let reservedWords = [
+  (* Keywords *)
   ("else", Parser.ELSE);
   ("false", Parser.FALSE);
   ("if", Parser.IF);
@@ -9,7 +10,7 @@ let reservedWords = [
 }
 
 rule main = parse
-  (* skip space and newline *)
+  (* ignore spacing and newline characters *)
   [' ' '\009' '\012' '\n']+     { main lexbuf }
 
 | "-"? ['0'-'9']+
@@ -23,10 +24,12 @@ rule main = parse
 | "<" { Parser.LT }
 
 | ['a'-'z'] ['a'-'z' '0'-'9' '_' '\'']*
-  { let id = Lexing.lexeme lexbuf in
-    try
-      List.assoc id reservedWords
-    with
-    _ -> Parser.ID id
-  }
+    { let id = Lexing.lexeme lexbuf in
+      try
+        List.assoc id reservedWords
+      with
+      _ -> Parser.ID id
+     }
 | eof { exit 0 }
+
+

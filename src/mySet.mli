@@ -11,4 +11,4 @@ val diff : 'a t -> 'a t -> 'a t
 val member : 'a -> 'a t -> bool
 
 val map : ('a -> 'b) -> 'a t -> 'b t
-val bigunion: 'a t t -> 'a t
+val bigunion : 'a t t -> 'a t
