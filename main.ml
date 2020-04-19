@@ -1,1 +1,3 @@
-let () = print_endline "Hello, World!"
+open Toyml.Cui
+
+let _ = read_eval_print initial_env
