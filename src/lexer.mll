@@ -22,6 +22,7 @@ rule main = parse
 | "+" { Parser.PLUS }
 | "-" { Parser.MINUS }
 | "*" { Parser.MULT }
+| "/" { Parser.DIV }
 | "<" { Parser.LT }
 | "&&" { Parser.AND }
 | "||" { Parser.OR }

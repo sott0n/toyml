@@ -23,6 +23,10 @@ let rec apply_prim op arg1 arg2 = match op, arg1, arg2 with
   | Minus, _, _ -> err ("Both arguments must be integer: -")
   | Mult, IntV i1, IntV i2 -> IntV (i1 * i2)
   | Mult, _, _ -> err ("Both arguments must be integer: *")
+  | Div, IntV i1, IntV i2 ->
+      if i2 == 0 then err ("Division by zero")
+      else IntV (i1 / i2)
+  | Div, _, _ -> err ("Both arguments must be integer: /")
   | Lt, IntV i1, IntV i2 -> BoolV (i1 < i2)
   | Lt, _, _ -> err ("Both arguments must be integer: <")
   | And, BoolV i1, BoolV i2 -> BoolV (i1 && i2)
