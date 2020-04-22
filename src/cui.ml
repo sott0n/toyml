@@ -10,9 +10,10 @@ let rec read_eval_print env =
     pp_val v;
     print_newline();
     read_eval_print newenv
-  with _ ->
-    print_string "Error: not yet implemented";
-    print_newline();
+  with e ->
+    let msg = Printexc.to_string e
+    and stack = Printexc.get_backtrace () in
+    Printf.printf "Error: %s%s\n" msg stack;
     read_eval_print env
 
 let initial_env =
