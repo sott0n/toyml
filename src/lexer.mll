@@ -9,13 +9,12 @@ let reservedWords = [
 ]
 }
 
-rule main = parse
-  (* ignore spacing and newline characters *)
-  [' ' '\009' '\012' '\n']+     { main lexbuf }
+let space = [' ' '\009' '\012' '\n']
 
+rule main = parse
+| space+ { main lexbuf }
 | "-"? ['0'-'9']+
     { Parser.INTV (int_of_string (Lexing.lexeme lexbuf)) }
-
 | "(" { Parser.LPAREN }
 | ")" { Parser.RPAREN }
 | ";;" { Parser.SEMISEMI }
@@ -26,7 +25,7 @@ rule main = parse
 | "<" { Parser.LT }
 | "&&" { Parser.AND }
 | "||" { Parser.OR }
-
+| "(*" { comments 0 lexbuf }
 | ['a'-'z'] ['a'-'z' '0'-'9' '_' '\'']*
     { let id = Lexing.lexeme lexbuf in
       try
@@ -36,4 +35,14 @@ rule main = parse
      }
 | eof { exit 0 }
 
-
+and comments level = parse
+| "*)"
+    { if level = 0 then main lexbuf
+      else comments (level-1) lexbuf
+    }
+| "(*" { comments (level+1) lexbuf }
+| _ { comments level lexbuf }
+| eof
+    { print_endline "Error: comments not closed";
+      raise End_of_file
+    }
