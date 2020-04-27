@@ -44,6 +44,11 @@ let rec eval_exp env = function
     let arg1 = eval_exp env exp1 in
     let arg2 = eval_exp env exp2 in
     apply_prim op arg1 arg2
+
+  | LetExp (id, exp1, exp2) ->
+    let value = eval_exp env exp1 in
+    eval_exp (Environment.extend id value env) exp2
+
   | IfExp (exp1, exp2, exp3) ->
     let test = eval_exp env exp1 in
     (match test with
@@ -53,3 +58,5 @@ let rec eval_exp env = function
 
 let eval_decl env = function
     Exp e -> let v = eval_exp env e in ("-", env, v)
+  | Decl (id, e) ->
+      let v = eval_exp env e in (id, Environment.extend id v env, v)
